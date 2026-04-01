@@ -1,42 +1,80 @@
 body {
     margin: 0;
-    font-family: Georgia, serif;
-    background: white;
-    color: black;
+    font-family: "Times New Roman", serif;
+    background: #f4f1ea;
+    color: #222;
 }
 
+/* TOPO */
 header {
-    background: black;
-    color: white;
+    background: #e8e1d4;
     text-align: center;
     padding: 20px;
+    border-bottom: 1px solid #ccc;
 }
 
+header h1 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 2px;
+}
+
+/* MENU */
 nav {
-    background: #f5f5f5;
-    padding: 10px;
+    background: #f4f1ea;
     text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
 nav a {
-    margin: 10px;
+    margin: 0 12px;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 14px;
+    color: #333;
 }
 
+/* PORTAL */
 .container {
-    padding: 25px;
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px;
 }
 
+/* CARDS */
 .card {
-    border: 1px solid black;
-    padding: 15px;
-    margin: 15px 0;
+    background: white;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
 }
 
-footer {
-    background: black;
-    color: white;
+/* DOCUMENTO (DECLARATIO) */
+.documento {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 40px;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.documento h2 {
     text-align: center;
+    letter-spacing: 2px;
+}
+
+.documento small {
+    display: block;
+    text-align: right;
+    margin-top: 20px;
+}
+
+/* BOTÃO */
+button {
+    background: #b89c5c;
+    color: white;
+    border: none;
     padding: 10px;
+    cursor: pointer;
 }
