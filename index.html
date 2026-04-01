@@ -1,42 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Portal Institucional Escolar</title>
+<title>Portal Institucional</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
-<h1>Conselho de Representantes</h1>
+<h1>CONSELHO DE REPRESENTANTES</h1>
 <p>Portal Institucional Escolar</p>
 </header>
 
 <nav>
-<a onclick="carregarSecao('diretriz')">Diretrizes</a>
-<a onclick="carregarSecao('carta')">Cartas Normativas</a>
-<a onclick="carregarSecao('aie')">Atos Institucionais</a>
-<a onclick="carregarSecao('indicium')">Indicium</a>
-<a onclick="carregarSecao('analise')">Análises</a>
-<a onclick="carregarSecao('decisoes')">Decisões</a>
-<a onclick="carregarSecao('disciplinar')">Sistema Disciplinar</a>
+<a onclick="carregar('decisoes')">Atos</a>
+<a onclick="carregar('diretriz')">Diretrizes</a>
+<a onclick="carregar('carta')">Cartas</a>
+<a onclick="carregar('aie')">AIE</a>
 <a onclick="login()">Painel</a>
 </nav>
 
-<main class="container" id="conteudo">
+<div class="container" id="conteudo">
 
-<h2>Bem-vindo</h2>
-<p>Este portal centraliza todas as decisões, normas e atos do Conselho de Representantes.</p>
+<h2>Atos Oficiais Recentes</h2>
 
-<h3>Últimas decisões</h3>
-<div id="decisoes"></div>
+<div id="lista"></div>
 
-</main>
-
-<footer>
-<p>Portal Oficial — Conselho de Representantes</p>
-</footer>
+</div>
 
 <script type="module" src="script.js"></script>
 
