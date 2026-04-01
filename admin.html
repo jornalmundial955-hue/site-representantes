@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Painel Administrativo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>Painel Administrativo</h1>
+</header>
+
+<nav>
+<a href="index.html">Portal</a>
+</nav>
+
+<div class="container">
+
+<h2>Publicação Oficial</h2>
+
+<select id="tipo">
+<option value="diretriz">Diretriz</option>
+<option value="carta">Carta Normativa</option>
+<option value="aie">AIE</option>
+<option value="indicium">Indicium</option>
+<option value="analise">Análise</option>
+<option value="decisao">Decisão</option>
+</select>
+
+<input id="titulo" placeholder="Título">
+
+<textarea id="texto" placeholder="Conteúdo"></textarea>
+
+<button onclick="publicar(true)">Publicar como Admin</button>
+
+<hr>
+
+<h2>Controle</h2>
+
+<button onclick="listarTudo()">Ver todas publicações</button>
+
+<div id="adminLista"></div>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
