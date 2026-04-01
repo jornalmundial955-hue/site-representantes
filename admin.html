@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Painel Administrativo</title>
@@ -9,43 +9,61 @@
 <body>
 
 <header>
-<h1>Painel Administrativo</h1>
+<h1>CONSELHO DE REPRESENTANTES</h1>
+<p>Painel Administrativo</p>
 </header>
 
 <nav>
 <a href="index.html">Portal</a>
+<a onclick="logout()">Sair</a>
 </nav>
 
 <div class="container">
 
 <h2>Publicação Oficial</h2>
 
+<p>Tipo de Documento:</p>
 <select id="tipo">
+<option value="decisoes">Decisão Oficial</option>
 <option value="diretriz">Diretriz</option>
 <option value="carta">Carta Normativa</option>
-<option value="aie">AIE</option>
+<option value="aie">Ato Institucional Escolar (AIE)</option>
 <option value="indicium">Indicium</option>
-<option value="analise">Análise</option>
-<option value="decisao">Decisão</option>
+<option value="analise">Análise do Conselho</option>
 </select>
 
-<input id="titulo" placeholder="Título">
+<p>Título:</p>
+<input id="titulo" type="text" placeholder="Título do documento" style="width:100%; padding:10px;">
 
-<textarea id="texto" placeholder="Conteúdo"></textarea>
+<p>Texto Oficial:</p>
+<textarea id="texto" placeholder="Redija o documento completo..." style="width:100%; height:200px; padding:10px;"></textarea>
 
-<button onclick="publicar(true)">Publicar como Admin</button>
+<br><br>
+
+<button onclick="publicar(true)">Publicar como Administração</button>
 
 <hr>
 
-<h2>Controle</h2>
+<h2>Controle Administrativo</h2>
 
-<button onclick="listarTudo()">Ver todas publicações</button>
+<p>Este painel possui autoridade total sobre o sistema institucional.</p>
 
-<div id="adminLista"></div>
+<ul>
+<li>✔ Publicar decisões oficiais</li>
+<li>✔ Criar normas e atos</li>
+<li>✔ Controlar o fluxo institucional</li>
+</ul>
 
 </div>
 
 <script type="module" src="script.js"></script>
+
+<script>
+// LOGOUT
+function logout() {
+    window.location.href = "index.html";
+}
+</script>
 
 </body>
 </html>
