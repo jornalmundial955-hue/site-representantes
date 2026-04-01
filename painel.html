@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Painel do Representante</title>
@@ -9,34 +9,48 @@
 <body>
 
 <header>
-<h1>Painel do Representante</h1>
+<h1>CONSELHO DE REPRESENTANTES</h1>
+<p>Painel do Representante</p>
 </header>
 
 <nav>
-<a href="index.html">Voltar ao Portal</a>
+<a href="index.html">Portal</a>
+<a onclick="logout()">Sair</a>
 </nav>
 
 <div class="container">
 
 <h2>Nova Publicação</h2>
 
+<p>Tipo de Documento:</p>
 <select id="tipo">
 <option value="diretriz">Diretriz</option>
 <option value="carta">Carta Normativa</option>
-<option value="aie">AIE</option>
+<option value="aie">Ato Institucional Escolar (AIE)</option>
 <option value="indicium">Indicium</option>
-<option value="analise">Análise</option>
+<option value="analise">Análise do Conselho</option>
 </select>
 
-<input id="titulo" placeholder="Título">
+<p>Título:</p>
+<input id="titulo" type="text" placeholder="Título do documento" style="width:100%; padding:10px;">
 
-<textarea id="texto" placeholder="Conteúdo completo"></textarea>
+<p>Texto Oficial:</p>
+<textarea id="texto" placeholder="Redija o documento completo..." style="width:100%; height:200px; padding:10px;"></textarea>
 
-<button onclick="publicar(false)">Publicar</button>
+<br><br>
+
+<button onclick="publicar(false)">Publicar Documento</button>
 
 </div>
 
 <script type="module" src="script.js"></script>
+
+<script>
+// LOGOUT SIMPLES
+function logout() {
+    window.location.href = "index.html";
+}
+</script>
 
 </body>
 </html>
