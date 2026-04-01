@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Painel do Representante</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>Painel do Representante</h1>
+</header>
+
+<nav>
+<a href="index.html">Voltar ao Portal</a>
+</nav>
+
+<div class="container">
+
+<h2>Nova Publicação</h2>
+
+<select id="tipo">
+<option value="diretriz">Diretriz</option>
+<option value="carta">Carta Normativa</option>
+<option value="aie">AIE</option>
+<option value="indicium">Indicium</option>
+<option value="analise">Análise</option>
+</select>
+
+<input id="titulo" placeholder="Título">
+
+<textarea id="texto" placeholder="Conteúdo completo"></textarea>
+
+<button onclick="publicar(false)">Publicar</button>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
