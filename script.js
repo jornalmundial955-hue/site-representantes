@@ -4,10 +4,12 @@ import {
   getFirestore,
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  deleteDoc,
+  doc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// CONFIG DO SEU FIREBASE
+// CONFIG FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyA0SLOCqvZlTKyQv3fAdQA-RRt1FfWUBAw",
   authDomain: "representantes-escola.firebaseapp.com",
@@ -17,7 +19,7 @@ const firebaseConfig = {
   appId: "1:984120464045:web:e1689fbda9eb466c8fac24"
 };
 
-// INICIAR FIREBASE
+// INICIALIZAÇÃO
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -25,18 +27,28 @@ const db = getFirestore(app);
 const senhaRep = "representado.em4c";
 const senhaAdmin = "fernando123321";
 
+// CONTROLE DE SESSÃO
+let isAdmin = false;
+
 // LOGIN
 window.login = function () {
     let senha = prompt("Digite a senha:");
 
     if (senha === senhaRep) {
+        localStorage.setItem("admin", "false");
         window.location.href = "painel.html";
     } else if (senha === senhaAdmin) {
+        localStorage.setItem("admin", "true");
         window.location.href = "admin.html";
     } else {
         alert("Senha incorreta");
     }
 };
+
+// VERIFICAR SE É ADMIN
+function verificarAdmin() {
+    return localStorage.getItem("admin") === "true";
+}
 
 // PUBLICAR DOCUMENTO
 window.publicar = async function (admin) {
@@ -60,16 +72,38 @@ window.publicar = async function (admin) {
     alert("Documento publicado com sucesso");
 };
 
+// EXCLUIR (APENAS ADMIN)
+window.excluir = async function (id) {
+    if (!verificarAdmin()) {
+        alert("Apenas a administração pode excluir documentos.");
+        return;
+    }
+
+    let confirmar = confirm("Deseja realmente excluir este documento?");
+    if (!confirmar) return;
+
+    await deleteDoc(doc(db, "publicacoes", id));
+
+    alert("Documento excluído com sucesso");
+    location.reload();
+};
+
 // CARREGAR DOCUMENTOS (ESTILO DECLARATIO)
 window.carregar = async function (tipo) {
     const querySnapshot = await getDocs(collection(db, "publicacoes"));
 
     let html = `<h2 style="text-align:center;">${tipo.toUpperCase()}</h2>`;
 
-    querySnapshot.forEach(doc => {
-        let d = doc.data();
+    querySnapshot.forEach(documento => {
+        let d = documento.data();
+        let id = documento.id;
 
         if (d.tipo === tipo || (tipo === "decisoes" && d.admin)) {
+
+            let botaoExcluir = verificarAdmin()
+                ? `<br><br><button onclick="excluir('${id}')">Excluir</button>`
+                : "";
+
             html += `
             <div class="documento">
                 <h2>${d.titulo}</h2>
@@ -77,6 +111,8 @@ window.carregar = async function (tipo) {
                 <p>${d.texto}</p>
 
                 <small>${d.data}</small>
+
+                ${botaoExcluir}
             </div>
             `;
         }
@@ -85,14 +121,14 @@ window.carregar = async function (tipo) {
     document.getElementById("conteudo").innerHTML = html;
 };
 
-// CARREGAR PÁGINA INICIAL (ATOS RECENTES)
+// CARREGAR PÁGINA INICIAL
 async function carregarInicio() {
     const querySnapshot = await getDocs(collection(db, "publicacoes"));
 
     let html = "";
 
-    querySnapshot.forEach(doc => {
-        let d = doc.data();
+    querySnapshot.forEach(documento => {
+        let d = documento.data();
 
         if (d.admin) {
             html += `
@@ -109,5 +145,5 @@ async function carregarInicio() {
     if (lista) lista.innerHTML = html;
 }
 
-// EXECUTA AO ABRIR O SITE
+// INICIAR
 carregarInicio();
