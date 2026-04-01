@@ -1,4 +1,4 @@
-// IMPORTS CORRETOS VIA CDN
+// IMPORTS FIREBASE (CDN)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import {
   getFirestore,
@@ -7,7 +7,7 @@ import {
   getDocs
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// SEU CONFIG (AJUSTADO)
+// CONFIG DO SEU FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyA0SLOCqvZlTKyQv3fAdQA-RRt1FfWUBAw",
   authDomain: "representantes-escola.firebaseapp.com",
@@ -17,7 +17,7 @@ const firebaseConfig = {
   appId: "1:984120464045:web:e1689fbda9eb466c8fac24"
 };
 
-// INICIALIZAÇÃO
+// INICIAR FIREBASE
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -27,7 +27,7 @@ const senhaAdmin = "fernando123321";
 
 // LOGIN
 window.login = function () {
-    let senha = prompt("Senha:");
+    let senha = prompt("Digite a senha:");
 
     if (senha === senhaRep) {
         window.location.href = "painel.html";
@@ -38,36 +38,44 @@ window.login = function () {
     }
 };
 
-// PUBLICAR
+// PUBLICAR DOCUMENTO
 window.publicar = async function (admin) {
     let tipo = document.getElementById("tipo").value;
     let titulo = document.getElementById("titulo").value;
     let texto = document.getElementById("texto").value;
 
+    if (!titulo || !texto) {
+        alert("Preencha todos os campos");
+        return;
+    }
+
     await addDoc(collection(db, "publicacoes"), {
-        tipo,
-        titulo,
-        texto,
+        tipo: tipo,
+        titulo: titulo,
+        texto: texto,
         data: new Date().toLocaleString(),
-        admin
+        admin: admin
     });
 
-    alert("Publicado com sucesso");
+    alert("Documento publicado com sucesso");
 };
 
-// CARREGAR SEÇÕES
-window.carregarSecao = async function (tipo) {
+// CARREGAR DOCUMENTOS (ESTILO DECLARATIO)
+window.carregar = async function (tipo) {
     const querySnapshot = await getDocs(collection(db, "publicacoes"));
-    let html = `<h2>${tipo.toUpperCase()}</h2>`;
+
+    let html = `<h2 style="text-align:center;">${tipo.toUpperCase()}</h2>`;
 
     querySnapshot.forEach(doc => {
         let d = doc.data();
 
         if (d.tipo === tipo || (tipo === "decisoes" && d.admin)) {
             html += `
-            <div class="card">
-                <h3>${d.titulo}</h3>
+            <div class="documento">
+                <h2>${d.titulo}</h2>
+
                 <p>${d.texto}</p>
+
                 <small>${d.data}</small>
             </div>
             `;
@@ -77,26 +85,29 @@ window.carregarSecao = async function (tipo) {
     document.getElementById("conteudo").innerHTML = html;
 };
 
-// CARREGAR DECISÕES INICIAIS
-async function carregarDecisoes() {
+// CARREGAR PÁGINA INICIAL (ATOS RECENTES)
+async function carregarInicio() {
     const querySnapshot = await getDocs(collection(db, "publicacoes"));
+
     let html = "";
 
     querySnapshot.forEach(doc => {
         let d = doc.data();
+
         if (d.admin) {
             html += `
             <div class="card">
                 <h3>${d.titulo}</h3>
-                <p>${d.texto}</p>
+                <p>${d.texto.substring(0, 150)}...</p>
                 <small>${d.data}</small>
             </div>
             `;
         }
     });
 
-    let el = document.getElementById("decisoes");
-    if (el) el.innerHTML = html;
+    let lista = document.getElementById("lista");
+    if (lista) lista.innerHTML = html;
 }
 
-carregarDecisoes();
+// EXECUTA AO ABRIR O SITE
+carregarInicio();
